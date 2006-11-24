@@ -1,0 +1,17 @@
+
+Sort out the READLINE problem, from dstruct/Makefile.am
+
+See from where common.h xmalloc.h created. How to use it well.
+
+See for common.h see in autobook ch 9
+
+For xmalloc.h see in autoproject etc
+
+Use list.{c,h} well in project and try to merge llset.c llist.c
+in list.c [Done]
+
+make use of subgraph optional.
+
+make use use of backedge or bentnear edge in loop statement optional.
+
+

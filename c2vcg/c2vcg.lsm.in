@@ -1,0 +1,21 @@
+Begin3
+Title:		c2vcg
+Version:	@VERSION@
+Entered-date:	@ISODATE@
+Description:	express C program in Graphical Flow Chart in VCG GDL.
+		@configure_input@
+		Please edit c2vcg.lsm.in to fix the Keywords and
+		Primary-site entries, add several more lines of
+		description here if appropriate, and to delete these
+		instructions.
+Keywords:	[substitute your keywords here]
+Author: 	sh4r4d@gmail.com (Sharad Pratap)
+Maintained-by:	sh4r4d@gmail.com (Sharad Pratap)
+Primary-site:	metlab.unc.edu pub/Linux/apps/some/directory
+		31k c2vcg-@VERSION@.tar.gz
+		500  c2vcg.lsm
+Alternate-site: 
+Original-site:  
+Platforms:      
+Copying-policy:	GNU copyleft
+End

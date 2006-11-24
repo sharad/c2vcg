@@ -1,0 +1,15 @@
+
+ 
+ Makefile.in
+ c2vcg.spec
+ c2vcg.lsm
+ stamp-h1
+ 
+ autom4te.cache
+ c2vcg.log
+ 
+ configure.in 
+ cscope.*
+ semantic.cache
+ .deps
+

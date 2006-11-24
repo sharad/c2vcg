@@ -1,0 +1,139 @@
+.\"                              hey, Emacs:   -*- nroff -*-
+.\" c2vcg is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 2 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program; see the file COPYING.  If not, write to
+.\" the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
+.\"
+.TH C2VCG 1 "November 15, 2006"
+.\" Please update the above date whenever this man page is modified.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins (default)
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH NAME
+c2vcg \- express C program in Graphical Flow Chart in VCG GDL.
+
+.SH SYNOPSIS
+
+.B c2vcg
+.RI
+[\fIoptions\fR]... [\fIinfile\fR]...
+
+.SH DESCRIPTION
+
+\fBc2vcg\fP display C program's CFG using VCG, or generate that CFG in VCG GDL.
+.PP
+It supports  equivalent grammar given in
+last pages of "The C Programming Language" K&R.
+
+.SH OPTIONS
+\fBc2vcg\fP accepts the following options:
+
+.TP
+.BR    -o ", " --output=\fIoutfile\fP   
+Output to \fIoutfile\fP instead of
+standard output
+.TP
+
+.BR -c ", " --caseq=+[number]|0|-[number]
+0 for sequential flow in switch
+statement,non zero
+for parallel flow from switch to case's, -/+ve for
+not/fixing case box on same level.
+.TP
+
+\" .B  --dry-run
+\" Take no real actions.
+\" .TP
+\" .B  --no-warn
+\" Disable warnings.
+\" .TP
+
+.BR   -e ", " --echo[=\fIoutfile\fP]
+Echo C Sources
+in \fIoutfile\fP or stderr.
+.TP
+
+.BR  --go2near[=\fI0|1\fP]
+Set goto -> stat nearedge
+
+.TP
+
+.BR  -w ", " --width=\fI+number\fP
+Graph width.
+.TP
+.BR  -h ", " --hight=\fI+number\fP
+Graph hight.
+.TP
+.BR -x ", " --xspace=\fI+number\fP
+X length.
+.TP 
+.BR -y ", " --yspace=\fI+number\fP
+Y length.
+.TP
+.BR  -n ", " --node=\fI+number\fP
+starting positive \fInode\fP number.
+.TP
+.BR  -p ", " --pnode[\fI=0|1\fP]
+Print node number.
+.TP
+.BR  -I ", " --include=\fIdir\fP
+Preprocessing Command.
+.TP
+.BR  -j ", " --joincase[\fI=+[number]|0|-[number]\fP]
+non zero for joining consecutive case's, -/+ve for
+joining on same/seperate line, case's.
+.TP
+.BR  -s ", " --semicol[\fI=0|1\fP]
+Show semicolon.
+.TP
+.BR  -g ", " --subgraph[\fI=0|1|2|3\fP]
+enable subgraph, 0 no subgraph,1 statement only
+subgraph, 2 external declaration subgraph
+(functions, declaration/definition of global
+variables, 3 both.
+.TP
+.BR  -q ", " --quiet ", " --silent
+Inhibit usual output.
+.TP
+.B  --brief
+Shorten output.
+.TP
+.BR  -v ", " --verbose
+Print more information.
+.TP
+\" .BI  --directory= name
+\" Use specified directory.
+\" .TP
+\" .BI  --cd= name
+\" Change to specified directory before proceeding.
+\" .TP
+.BR  -? ", " --help
+List all available options and their meanings.
+.TP
+.B  --usage
+Show summary of options.
+.TP
+.BR  -V ", " --version
+Show version of program.
+.SH "SEE ALSO"
+.BR xvcg (1), 
+.BR vcg (1).
+.SH AUTHOR
+Sharad Pratap <sh4r4d@gmail.com>.

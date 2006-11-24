@@ -1,0 +1,8 @@
+default: all
+
+all:
+	aclocal-1.9
+	autoheader2.50
+	automake-1.9 --add-missing --copy --gnu 
+	automake-1.9
+	autoconf2.50

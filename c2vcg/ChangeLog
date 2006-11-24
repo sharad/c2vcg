@@ -1,0 +1,39 @@
+2006-06-29  Sharad  <s@large>
+
+	* src/: From here, Removing the use of bstree, and now start to
+	use the hash Data Structure functions  got from gcc sources from
+	bc-emit.[ch] files.
+
+2005-06-02    <s@large.org>
+
+	* argopt.c: 
+
+2005-05-28    <s@large.org>
+
+	* main.c: Added the direct supprot for various options, using
+	argopt.c, and programs output is directed to xvcg through pipe.
+
+2005-05-21    <s@large.org>
+
+	* gram.y: Added the support for invisible near edge between the
+	case node of switch. See at 
+	                           SWITCH '(' expr ')' statement
+				   
+				   Rule.
+
+2005-05-20    <s@large.org>
+
+	* gram.y: all edge set using struct nodtyp {node,type}
+	so all edges can be set by crtoutsedgs () function.
+
+	As well as I am trying to add the support for "label" and "goto"
+	statement.
+
+	* c2vcg.h: add a new 
+	typedef struct {
+	                int node;
+	                Sttyp type;
+	               } nodtyp;
+
+	for outs, cnt, .. etc nodes of Flows.
+
