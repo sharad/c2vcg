@@ -45,6 +45,6 @@ libc2vcgadt_a_SOURCES	= id-emit.c list.c set.c xmalloc.c
 ## 			llist_private.c llset.c dsscall.h id-emit.h \
 ## 			llist.h llist_private.h llset.h
 
-
+EXTRA_DIST		= id-emit.h list.h set.h common.h system.h
 
 ### Makefile.am ends here

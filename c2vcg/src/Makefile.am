@@ -51,6 +51,9 @@ c2vcg_SOURCES = argopt.c c2vcg.c memmgm.c output.c gram.y scan.l
 c2vcg_LDADD = $(top_srcdir)/c2vcgadt/libc2vcgadt.a \
 		$(top_builddir)/replace/libreplace.a $(LIBADD_READLINE)
 
+
+EXTRA_DIST    = c2vcg.h  gram.h  memmgm.h  output.h
+
 ## EXTRA_DIST = argopt.c c2vcg.c memmgm.c output.c c2vcg.h memmgm.h output.h scan.l gram.y semantic.cache
 
 
