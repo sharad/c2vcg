@@ -192,7 +192,7 @@ static struct c2vlglab *addsearch_label (char *ident, int node)
 int put_out_node (char *ident, int node)
 {
   struct c2vlglab *retval = addsearch_label (ident, -11);
-  if (retval -> labnode < 0)
+  if (retval -> lablnode < 0)
     insert (JUMP, node, &(retval->go2node) );
   return retval->lablnode;
 }
