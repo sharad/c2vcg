@@ -21,5 +21,6 @@ info_TEXINFOS = c2vcg.texinfo
 c2vcg_TEXINFOS = gpl.texinfo
 
 #  install the man pages
-man_MANS=c2vcg.1
+## man_MANS=c2vcg.1
 
+dist_man1_MANS = c2vcg.1
