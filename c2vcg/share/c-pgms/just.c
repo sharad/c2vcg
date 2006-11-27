@@ -1,3 +1,6 @@
+
+
+
 int main(int argc, char *argv[]) {
    char    c;            /* used for argument parsing */
    struct  termios pts;  /* termios settings on port */

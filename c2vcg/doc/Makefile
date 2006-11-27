@@ -36,8 +36,8 @@ POST_UNINSTALL = :
 build_triplet = i686-pc-linux-gnu
 host_triplet = i686-pc-linux-gnu
 subdir = doc
-DIST_COMMON = $(c2vcg_TEXINFOS) $(srcdir)/Makefile.am \
-	$(srcdir)/Makefile.in
+DIST_COMMON = $(c2vcg_TEXINFOS) $(dist_man1_MANS) \
+	$(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/readline.m4 \
 	$(top_srcdir)/m4/sys_errlist.m4 \
@@ -65,7 +65,7 @@ DVIPS = dvips
 am__installdirs = "$(DESTDIR)$(infodir)" "$(DESTDIR)$(man1dir)"
 man1dir = $(mandir)/man1
 NROFF = nroff
-MANS = $(man_MANS)
+MANS = $(dist_man1_MANS)
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = ${SHELL} /home/s/codeplace/c2vcg/config/missing --run aclocal-1.9
 ALLOCA = 
@@ -110,7 +110,7 @@ INTLLIBS =
 INTLOBJS = 
 INTL_LIBTOOL_SUFFIX_PREFIX = 
 INTL_MACOSX_LIBS = 
-ISODATE = 2006-11-24
+ISODATE = 2006-11-27
 LDFLAGS = 
 LEX = flex
 LEXLIB = -lfl
@@ -130,9 +130,9 @@ OBJEXT = o
 PACKAGE = c2vcg
 PACKAGE_BUGREPORT = sh4r4d@gmail.com
 PACKAGE_NAME = c2vcg
-PACKAGE_STRING = c2vcg 1.0b1
+PACKAGE_STRING = c2vcg 1.0b2
 PACKAGE_TARNAME = c2vcg
-PACKAGE_VERSION = 1.0b1
+PACKAGE_VERSION = 1.0b2
 PATH_SEPARATOR = :
 POSUB = po
 RANLIB = ranlib
@@ -141,7 +141,7 @@ SHELL = /bin/sh
 STRIP = 
 USE_INCLUDED_LIBINTL = no
 USE_NLS = yes
-VERSION = 1.0b1
+VERSION = 1.0b2
 WITH_READLINE_FALSE = 
 WITH_READLINE_TRUE = #
 XGETTEXT = /usr/bin/xgettext
@@ -190,7 +190,7 @@ info_TEXINFOS = c2vcg.texinfo
 c2vcg_TEXINFOS = gpl.texinfo
 
 #  install the man pages
-man_MANS = c2vcg.1
+dist_man1_MANS = c2vcg.1
 all: all-am
 
 .SUFFIXES:
