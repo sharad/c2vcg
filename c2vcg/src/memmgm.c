@@ -176,7 +176,7 @@ static struct c2vlglab *addsearch_label (char *ident, int node)
   struct c2vlglab *tmp;
   struct c2vlglab *test = XMALLOC (struct c2vlglab, 1);
   test -> label = ident;
-  /* test -> lablnode = node; */
+  test -> lablnode = node;
   test -> go2node = (Set) 0;
 
   if ((tmp = tsearch (test, &golabs, cmplglabs))
@@ -192,7 +192,7 @@ static struct c2vlglab *addsearch_label (char *ident, int node)
 int put_out_node (char *ident, int node)
 {
   struct c2vlglab *retval = addsearch_label (ident, -11);
-  if (retval -> lablnode < 0)
+  if (retval -> lablnode >= 0)
     insert (JUMP, node, &(retval->go2node) );
   return retval->lablnode;
 }
