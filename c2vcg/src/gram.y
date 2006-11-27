@@ -1207,7 +1207,7 @@ jump_statement:
 			  $$->copy = NULL;
 			  $$->flows = get_flows (node, NONODE, NULLNODE); /* entry is */
 			  /* here, but no outs, except to (int label) */
-			  if ((label = put_out_node (ident, node)) > 0)
+			  if ((label = put_out_node (ident, node)) >= 0)
 			    sketch_edge (BACK, node, label, NULL, NULL);
 			  freestat ($1); // free it $1->copy also.
 			}
