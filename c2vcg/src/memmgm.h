@@ -54,7 +54,7 @@ struct c2vlglab;
 
 int put_out_node (char *ident, int node);
 
-struct c2vlglab *addsearch_label (char *ident, int node);
+//struct c2vlglab *addsearch_label (char *ident, int node);
 
 Set *put_lable_node (char *ident, int node);
 
