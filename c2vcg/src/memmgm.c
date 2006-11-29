@@ -76,7 +76,7 @@ Flows *get_flows (int entry, Sttyp type, int node)
   insert (type, node, &(retval->outs) );
   retval->brk   = NULL;
   retval->cnt   = NULL;
-  retval->cas   = NULL;
+/*   retval->cas   = NULL; */
   retval->sttyp = SIMPLE;
   return retval;
 }    
