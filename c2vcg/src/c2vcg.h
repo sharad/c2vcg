@@ -94,8 +94,7 @@ extern FILE *echoout;		/* echo C soucre */
 
 enum dir { FORWARD, REVERSE };
 
-enum Sttyp {NONODE = 0, SIMPLE, LOOP,
-	    SEL, JUMP, SWIT, CAS, LABL};
+enum Sttyp {NONODE = 0, LOOP, LABL,  SIMPLE, SEL, JUMP, SWIT, CAS};
 enum edge { PASS = 0, EDGE, BENTNEAR, BACK, NEAR }; /*  */
 
 typedef enum Sttyp Sttyp;

@@ -30,7 +30,7 @@
 
 
 
-# define LOG2STATYPE 3
+# define LOG2STATYPE 2
 
 
 
@@ -46,6 +46,9 @@ static ttyp checkelem (int nu, SETSPACE bowl [])
 {
   unsigned int retval = 0;
   int i;
+/*   ttyp tmp = 01; */
+/*   if (stattype > (tmp <<= (LOG2STATYPE - 1) ) ) */
+/*     stattype = tmp; */
 
   for (i = 0; i < LOG2STATYPE; i++)
     if (bowl [i] & (01 << nu))
@@ -56,16 +59,24 @@ static ttyp checkelem (int nu, SETSPACE bowl [])
 
 static ttyp setelem (ttyp stattype, int nu, SETSPACE bowl [])
 {
-  unsigned int setval = stattype;
+  //  unsigned int stattype = stattype;
   int i;
+  //  ttyp tmp = 01;
+
+  if (stattype > (01<<LOG2STATYPE) - 1) { /* new added */
+    stattype = (01<<LOG2STATYPE) - 1;     /* if enum sttype used elsewhere */
+  }                                       /* than sketchout_edgs may be */
+                                          /* LOG2STATYPE = 2 is not useful */
+                                          /* as well as if clause also. */
+  fflush (stderr);
 
   for (i = 0; i < LOG2STATYPE; i++)
-      if (setval & (01<<i))
+      if (stattype & (01<<i))
 	bowl [i] |= (01<<nu);
       else
 	bowl [i] &= ~(01<<nu);
 
-  return (ttyp) setval;
+  return (ttyp) stattype;
 }
 
 static ttyp clearelem (int nu, SETSPACE bowl [])
@@ -97,7 +108,7 @@ int insert (ttyp eletype, SETP ele, ptrSet dest)
   ttyp k;
 
 # ifdef UNESSARY_CODE
-  if (ele < 0) {
+  if (eletype && ele < 0) {
     fprintf (sdterr, "\n%d -tive value "
 	     "can not be inserted in Set"
 	     , ele);
