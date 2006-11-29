@@ -619,7 +619,7 @@ labeled_statement:
 
 
 		  if (!($4->flows->sttyp == CAS && pgmargs.casejoin)) {
-		    insert (CAS, node, &($$->flows->cas));
+/* 		    insert (CAS, node, &($$->flows->cas)); */
 		    sketch_edge (pgmargs.caseq ? EDGE : NEAR, node,
 				 $4->flows->entry, NULL, NULL);
 		  }
@@ -651,7 +651,7 @@ labeled_statement:
 		  
 		  
 		  if (!($3->flows->sttyp == CAS && pgmargs.casejoin)) {
-		    insert (CAS, node, &($$->flows->cas));
+/* 		    insert (CAS, node, &($$->flows->cas)); */
 		    sketch_edge (pgmargs.caseq ? EDGE : NEAR, node, $3->flows->entry, NULL, NULL);
 		  }
 		  //if ($$->flows->sttyp == LOOP) forincase = 1;
@@ -733,10 +733,10 @@ statement_list:
 	  ($$ = $1)->flows->outs = $2->flows->outs;
 	  setunion (&($$->flows->brk), &($2->flows->brk));
 	  setunion (&($$->flows->cnt), &($2->flows->cnt));
-	  setunion (&($$->flows->cas), &($2->flows->cas));
+/* 	  setunion (&($$->flows->cas), &($2->flows->cas)); */
 
-	  $2->flows->outs = $2->flows->brk =
-	    $2->flows->cnt = $2->flows->cas = NULL; /* not necessary */
+	  $2->flows->outs = $2->flows->brk = $2->flows->cnt = NULL; 
+/* 	  $2->flows->cas = NULL;  */
 
 	  free ($2->flows);
 	  //showflows ($$->flows->outs, "statlist stat: Joining:");
@@ -798,7 +798,7 @@ selection_statement:
 		  setunion (&($$->flows->outs), &($7->flows->outs));
 		  setunion (&($$->flows->brk), &($7->flows->brk));
 		  setunion (&($$->flows->cnt), &($7->flows->cnt));
-		  setunion (&($$->flows->cas), &($7->flows->cas));
+/* 		  setunion (&($$->flows->cas), &($7->flows->cas)); */
 		  
 		  free ($7->flows);
 		  freestat ($7);
@@ -820,9 +820,11 @@ selection_statement:
 		  sketch_edge (EDGE, node, $6->flows->entry, NULL, NULL);
 
 
-		if (pgmargs.caseq) /* non 0 caseq means parallel */
-		  cascount =  sketchout_edges (BENTNEAR, &($6->flows->cas), node,
-					 REVERSE);
+		/* if (pgmargs.caseq != 0) /\* non 0 caseq means parallel *\/ */
+/* 		  cascount =  sketchout_edges (BENTNEAR, */
+/* 					       &($6->flows->cas), */
+/* 					       node, */
+/* 					       REVERSE); */
 
 
 		while (/*cascount-- &&  what to do. */
@@ -836,14 +838,16 @@ selection_statement:
 		    else 
 		      sketch_edge (NEAR, casnode, prev_casnode,
 				   NULL, "invisible");
-
-
 		  /* added Sat May 20, see effect by setting
 		     pgmargs.caseq 0 or > 0 Do not worry about
 		     it, it will not sketch edge between 0 and
 		     casnode, because of above if expression.*/
-		  
+
+		  if (pgmargs.caseq != 0) /* new added. */
+		    sketch_edge (BENTNEAR, node, casnode, NULL, NULL);
+
 		  sketch_node (prev_casnode = casnode, cas_copy, NULL, NULL);
+
 		}
 
 		if (pgmargs.caseq == 0)

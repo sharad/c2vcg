@@ -119,7 +119,7 @@ struct Flows {
   int entry;
   Sttyp sttyp;
   Set outs;
-  Set brk, cnt, cas;
+  Set brk, cnt; /* cas; */
 };
 
 
