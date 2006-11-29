@@ -526,16 +526,16 @@ static const unsigned short int yyrline[] =
      509,   511,   513,   521,   525,   527,   531,   535,   539,   541,
      545,   549,   561,   561,   567,   568,   569,   570,   571,   572,
      576,   601,   632,   665,   670,   680,   690,   692,   711,   726,
-     728,   751,   783,   807,   807,   876,   895,   928,   954,   989,
-    1020,  1051,  1084,  1119,  1153,  1197,  1214,  1223,  1232,  1240,
-    1253,  1255,  1259,  1261,  1268,  1270,  1278,  1286,  1287,  1288,
-    1289,  1290,  1291,  1292,  1293,  1294,  1295,  1299,  1301,  1309,
-    1313,  1315,  1324,  1326,  1335,  1337,  1345,  1347,  1356,  1358,
-    1366,  1368,  1375,  1384,  1386,  1391,  1396,  1403,  1412,  1414,
-    1421,  1430,  1432,  1438,  1447,  1449,  1455,  1461,  1469,  1471,
-    1479,  1481,  1487,  1493,  1499,  1505,  1513,  1515,  1517,  1519,
-    1521,  1523,  1528,  1530,  1536,  1539,  1545,  1550,  1557,  1563,
-    1571,  1573,  1576,  1578,  1582,  1584,  1598,  1600
+     728,   751,   783,   807,   807,   880,   899,   932,   958,   993,
+    1024,  1055,  1088,  1123,  1157,  1201,  1218,  1227,  1236,  1244,
+    1257,  1259,  1263,  1265,  1272,  1274,  1282,  1290,  1291,  1292,
+    1293,  1294,  1295,  1296,  1297,  1298,  1299,  1303,  1305,  1313,
+    1317,  1319,  1328,  1330,  1339,  1341,  1349,  1351,  1360,  1362,
+    1370,  1372,  1379,  1388,  1390,  1395,  1400,  1407,  1416,  1418,
+    1425,  1434,  1436,  1442,  1451,  1453,  1459,  1465,  1473,  1475,
+    1483,  1485,  1491,  1497,  1503,  1509,  1517,  1519,  1521,  1523,
+    1525,  1527,  1532,  1534,  1540,  1543,  1549,  1554,  1561,  1567,
+    1575,  1577,  1580,  1582,  1586,  1588,  1602,  1604
 };
 #endif
 
@@ -2493,7 +2493,7 @@ yyreduce:
 
 
 		  if (!(yyvsp[0].stat->flows->sttyp == CAS && pgmargs.casejoin)) {
-		    insert (CAS, node, &(yyval.stat->flows->cas));
+/* 		    insert (CAS, node, &($$->flows->cas)); */
 		    sketch_edge (pgmargs.caseq ? EDGE : NEAR, node,
 				 yyvsp[0].stat->flows->entry, NULL, NULL);
 		  }
@@ -2528,7 +2528,7 @@ yyreduce:
 		  
 		  
 		  if (!(yyvsp[0].stat->flows->sttyp == CAS && pgmargs.casejoin)) {
-		    insert (CAS, node, &(yyval.stat->flows->cas));
+/* 		    insert (CAS, node, &($$->flows->cas)); */
 		    sketch_edge (pgmargs.caseq ? EDGE : NEAR, node, yyvsp[0].stat->flows->entry, NULL, NULL);
 		  }
 		  //if ($$->flows->sttyp == LOOP) forincase = 1;
@@ -2624,10 +2624,10 @@ yyreduce:
 	  (yyval.stat = yyvsp[-1].stat)->flows->outs = yyvsp[0].stat->flows->outs;
 	  setunion (&(yyval.stat->flows->brk), &(yyvsp[0].stat->flows->brk));
 	  setunion (&(yyval.stat->flows->cnt), &(yyvsp[0].stat->flows->cnt));
-	  setunion (&(yyval.stat->flows->cas), &(yyvsp[0].stat->flows->cas));
+/* 	  setunion (&($$->flows->cas), &($2->flows->cas)); */
 
-	  yyvsp[0].stat->flows->outs = yyvsp[0].stat->flows->brk =
-	    yyvsp[0].stat->flows->cnt = yyvsp[0].stat->flows->cas = NULL; /* not necessary */
+	  yyvsp[0].stat->flows->outs = yyvsp[0].stat->flows->brk = yyvsp[0].stat->flows->cnt = NULL; 
+/* 	  $2->flows->cas = NULL;  */
 
 	  free (yyvsp[0].stat->flows);
 	  //showflows ($$->flows->outs, "statlist stat: Joining:");
@@ -2689,7 +2689,7 @@ yyreduce:
 		  setunion (&(yyval.stat->flows->outs), &(yyvsp[0].stat->flows->outs));
 		  setunion (&(yyval.stat->flows->brk), &(yyvsp[0].stat->flows->brk));
 		  setunion (&(yyval.stat->flows->cnt), &(yyvsp[0].stat->flows->cnt));
-		  setunion (&(yyval.stat->flows->cas), &(yyvsp[0].stat->flows->cas));
+/* 		  setunion (&($$->flows->cas), &($7->flows->cas)); */
 		  
 		  free (yyvsp[0].stat->flows);
 		  freestat (yyvsp[0].stat);
@@ -2717,9 +2717,11 @@ yyreduce:
 		  sketch_edge (EDGE, node, yyvsp[0].stat->flows->entry, NULL, NULL);
 
 
-		if (pgmargs.caseq) /* non 0 caseq means parallel */
-		  cascount =  sketchout_edges (BENTNEAR, &(yyvsp[0].stat->flows->cas), node,
-					 REVERSE);
+		/* if (pgmargs.caseq != 0) /\* non 0 caseq means parallel *\/ */
+/* 		  cascount =  sketchout_edges (BENTNEAR, */
+/* 					       &($6->flows->cas), */
+/* 					       node, */
+/* 					       REVERSE); */
 
 
 		while (/*cascount-- &&  what to do. */
@@ -2733,14 +2735,16 @@ yyreduce:
 		    else 
 		      sketch_edge (NEAR, casnode, prev_casnode,
 				   NULL, "invisible");
-
-
 		  /* added Sat May 20, see effect by setting
 		     pgmargs.caseq 0 or > 0 Do not worry about
 		     it, it will not sketch edge between 0 and
 		     casnode, because of above if expression.*/
-		  
+
+		  if (pgmargs.caseq != 0) /* new added. */
+		    sketch_edge (BENTNEAR, node, casnode, NULL, NULL);
+
 		  sketch_node (prev_casnode = casnode, cas_copy, NULL, NULL);
+
 		}
 
 		if (pgmargs.caseq == 0)
@@ -2770,7 +2774,7 @@ yyreduce:
     break;
 
   case 135:
-#line 878 "gram.y"
+#line 882 "gram.y"
     {
 	  	sketch_node (++node, copyfmt ( "while\\n%s", freestat (yyvsp[-2].stat)),
 			 "rhomb", "33");
@@ -2791,7 +2795,7 @@ yyreduce:
     break;
 
   case 136:
-#line 896 "gram.y"
+#line 900 "gram.y"
     {
 	    sketch_node (++node, strdup ("do"), NULL, NULL);   //search 
 	    sketch_edge (EDGE, node, yyvsp[-5].stat->flows->entry, NULL, NULL);
@@ -2827,7 +2831,7 @@ yyreduce:
     break;
 
   case 137:
-#line 929 "gram.y"
+#line 933 "gram.y"
     {
 		sketch_node (++node, strdup ("for (;;)"), "rhomb", NULL);
 		sketch_edge (EDGE, node, yyvsp[0].stat->flows->entry, NULL, NULL);
@@ -2856,7 +2860,7 @@ yyreduce:
     break;
 
   case 138:
-#line 955 "gram.y"
+#line 959 "gram.y"
     {
 		sketch_node (++node, strdup ("for ; ;"), "rhomb", NULL);
 
@@ -2894,7 +2898,7 @@ yyreduce:
     break;
 
   case 139:
-#line 990 "gram.y"
+#line 994 "gram.y"
     {
 		sketch_node (++node, yyvsp[-3].stat->copy, /*fmtvcg ($4->copy),*/
 			   "rhomb", "33");
@@ -2928,7 +2932,7 @@ yyreduce:
     break;
 
   case 140:
-#line 1021 "gram.y"
+#line 1025 "gram.y"
     {
 		sketch_node (++node, yyvsp[-4].stat->copy, "rhomb", "33");
 
@@ -2962,7 +2966,7 @@ yyreduce:
     break;
 
   case 141:
-#line 1052 "gram.y"
+#line 1056 "gram.y"
     {
 		  //$$->flows->sttyp = LOOP;
 		sketch_node (++node, yyvsp[-4].stat->copy, NULL, NULL);
@@ -2998,7 +3002,7 @@ yyreduce:
     break;
 
   case 142:
-#line 1085 "gram.y"
+#line 1089 "gram.y"
     {
 		  //$$->flows->sttyp = LOOP;
 		sketch_node (++node, yyvsp[-5].stat->copy, NULL, NULL);
@@ -3036,7 +3040,7 @@ yyreduce:
     break;
 
   case 143:
-#line 1120 "gram.y"
+#line 1124 "gram.y"
     {
 		  //$$->flows->sttyp = LOOP;
 		sketch_node (++node, yyvsp[-5].stat->copy, NULL, NULL);
@@ -3073,7 +3077,7 @@ yyreduce:
     break;
 
   case 144:
-#line 1154 "gram.y"
+#line 1158 "gram.y"
     {
 		  //$$->flows->sttyp = LOOP;
 		sketch_node (++node, yyvsp[-6].stat->copy, NULL, NULL);
@@ -3117,7 +3121,7 @@ yyreduce:
     break;
 
   case 145:
-#line 1198 "gram.y"
+#line 1202 "gram.y"
     {
 			  int label;
 			  char *ident = strdup (yyvsp[-1].stat->copy); /* used to send */
@@ -3130,14 +3134,14 @@ yyreduce:
 			  yyval.stat->copy = NULL;
 			  yyval.stat->flows = get_flows (node, NONODE, NULLNODE); /* entry is */
 			  /* here, but no outs, except to (int label) */
-			  if ((label = put_out_node (ident, node)) > 0)
+			  if ((label = put_out_node (ident, node)) >= 0)
 			    sketch_edge (BACK, node, label, NULL, NULL);
 			  freestat (yyvsp[-2].stat); // free it $1->copy also.
 			}
     break;
 
   case 146:
-#line 1215 "gram.y"
+#line 1219 "gram.y"
     {
 			  sketch_node (++node, copyfmt(pgmargs.semicolon ? "%s;" : "%s", yyvsp[-1].stat->copy),
 				   NULL, NULL);
@@ -3149,7 +3153,7 @@ yyreduce:
     break;
 
   case 147:
-#line 1224 "gram.y"
+#line 1228 "gram.y"
     {
 			  sketch_node (++node, copyfmt(pgmargs.semicolon ? "%s;" : "%s", yyvsp[-1].stat->copy),
 				   NULL, NULL);
@@ -3161,7 +3165,7 @@ yyreduce:
     break;
 
   case 148:
-#line 1233 "gram.y"
+#line 1237 "gram.y"
     {
 			  sketch_node (++node, copyfmt(pgmargs.semicolon ? "%s;" : "%s", yyvsp[-1].stat->copy),
 				   NULL, NULL);
@@ -3172,7 +3176,7 @@ yyreduce:
     break;
 
   case 149:
-#line 1241 "gram.y"
+#line 1245 "gram.y"
     {
 			  sketch_node (++node,
 				   copyfmt ( pgmargs.semicolon ? "return %s;" : "return %s", yyvsp[-1].stat->copy),
@@ -3185,34 +3189,34 @@ yyreduce:
     break;
 
   case 150:
-#line 1253 "gram.y"
+#line 1257 "gram.y"
     { yyval.stat = yyvsp[0].stat; }
     break;
 
   case 151:
-#line 1255 "gram.y"
+#line 1259 "gram.y"
     { yyval.stat = yyvsp[0].stat; }
     break;
 
   case 152:
-#line 1259 "gram.y"
+#line 1263 "gram.y"
     {yyval.stat = yyvsp[0].stat;}
     break;
 
   case 153:
-#line 1262 "gram.y"
+#line 1266 "gram.y"
     { yyval.stat = yyvsp[-2].stat;
 		   yyval.stat->copy = copyfmt ( "%s, %s", yyvsp[-2].stat->copy, yyvsp[0].stat->copy);
 		   freestat (yyvsp[0].stat); }
     break;
 
   case 154:
-#line 1268 "gram.y"
+#line 1272 "gram.y"
     {yyval.stat = yyvsp[0].stat;}
     break;
 
   case 155:
-#line 1271 "gram.y"
+#line 1275 "gram.y"
     { 
 		     (yyval.stat = yyvsp[-2].stat)->copy = copyfmt ( "%s%s%s", yyvsp[-2].stat->copy,
 					  freestat (yyvsp[-1].stat), freestat (yyvsp[0].stat));
@@ -3220,67 +3224,67 @@ yyreduce:
     break;
 
   case 156:
-#line 1278 "gram.y"
+#line 1282 "gram.y"
     { yyval.stat = get_stat (strdup ("="), NULL); }
     break;
 
   case 157:
-#line 1286 "gram.y"
-    {yyval.stat = yyvsp[0].stat;}
-    break;
-
-  case 158:
-#line 1287 "gram.y"
-    {yyval.stat = yyvsp[0].stat;}
-    break;
-
-  case 159:
-#line 1288 "gram.y"
-    {yyval.stat = yyvsp[0].stat;}
-    break;
-
-  case 160:
-#line 1289 "gram.y"
-    {yyval.stat = yyvsp[0].stat;}
-    break;
-
-  case 161:
 #line 1290 "gram.y"
     {yyval.stat = yyvsp[0].stat;}
     break;
 
-  case 162:
+  case 158:
 #line 1291 "gram.y"
     {yyval.stat = yyvsp[0].stat;}
     break;
 
-  case 163:
+  case 159:
 #line 1292 "gram.y"
     {yyval.stat = yyvsp[0].stat;}
     break;
 
-  case 164:
+  case 160:
 #line 1293 "gram.y"
     {yyval.stat = yyvsp[0].stat;}
     break;
 
-  case 165:
+  case 161:
 #line 1294 "gram.y"
     {yyval.stat = yyvsp[0].stat;}
     break;
 
-  case 166:
+  case 162:
 #line 1295 "gram.y"
     {yyval.stat = yyvsp[0].stat;}
     break;
 
-  case 167:
+  case 163:
+#line 1296 "gram.y"
+    {yyval.stat = yyvsp[0].stat;}
+    break;
+
+  case 164:
+#line 1297 "gram.y"
+    {yyval.stat = yyvsp[0].stat;}
+    break;
+
+  case 165:
+#line 1298 "gram.y"
+    {yyval.stat = yyvsp[0].stat;}
+    break;
+
+  case 166:
 #line 1299 "gram.y"
     {yyval.stat = yyvsp[0].stat;}
     break;
 
+  case 167:
+#line 1303 "gram.y"
+    {yyval.stat = yyvsp[0].stat;}
+    break;
+
   case 168:
-#line 1302 "gram.y"
+#line 1306 "gram.y"
     {
 		    (yyval.stat = yyvsp[-4].stat)->copy = copyfmt ( "%s ? %s:%s", yyvsp[-4].stat->copy,
 						freestat (yyvsp[-2].stat), freestat (yyvsp[0].stat));
@@ -3288,17 +3292,17 @@ yyreduce:
     break;
 
   case 169:
-#line 1309 "gram.y"
-    {yyval.stat = yyvsp[0].stat;}
-    break;
-
-  case 170:
 #line 1313 "gram.y"
     {yyval.stat = yyvsp[0].stat;}
     break;
 
+  case 170:
+#line 1317 "gram.y"
+    {yyval.stat = yyvsp[0].stat;}
+    break;
+
   case 171:
-#line 1316 "gram.y"
+#line 1320 "gram.y"
     {
 		   (yyval.stat = yyvsp[-2].stat)->copy = copyfmt ( "%s||%s",
 					       yyvsp[-2].stat->copy, freestat (yyvsp[0].stat));
@@ -3307,12 +3311,12 @@ yyreduce:
     break;
 
   case 172:
-#line 1324 "gram.y"
+#line 1328 "gram.y"
     {yyval.stat = yyvsp[0].stat;}
     break;
 
   case 173:
-#line 1327 "gram.y"
+#line 1331 "gram.y"
     {
 		   (yyval.stat = yyvsp[-2].stat)->copy = copyfmt ( "%s&&%s",
 					       yyvsp[-2].stat->copy, freestat (yyvsp[0].stat));
@@ -3321,12 +3325,12 @@ yyreduce:
     break;
 
   case 174:
-#line 1335 "gram.y"
+#line 1339 "gram.y"
     {yyval.stat = yyvsp[0].stat;}
     break;
 
   case 175:
-#line 1338 "gram.y"
+#line 1342 "gram.y"
     {
 		    (yyval.stat = yyvsp[-2].stat)->copy = copyfmt ( "%s|%s",
 						yyvsp[-2].stat->copy, freestat (yyvsp[0].stat));
@@ -3334,12 +3338,12 @@ yyreduce:
     break;
 
   case 176:
-#line 1345 "gram.y"
+#line 1349 "gram.y"
     {yyval.stat = yyvsp[0].stat;}
     break;
 
   case 177:
-#line 1348 "gram.y"
+#line 1352 "gram.y"
     {
 		    (yyval.stat = yyvsp[-2].stat)->copy = copyfmt ( "%s^%s",
 						yyvsp[-2].stat->copy, freestat (yyvsp[0].stat));
@@ -3348,12 +3352,12 @@ yyreduce:
     break;
 
   case 178:
-#line 1356 "gram.y"
+#line 1360 "gram.y"
     {yyval.stat = yyvsp[0].stat;}
     break;
 
   case 179:
-#line 1359 "gram.y"
+#line 1363 "gram.y"
     {
 		    (yyval.stat = yyvsp[-2].stat)->copy = copyfmt ( "%s&%s",
 						yyvsp[-2].stat->copy, freestat (yyvsp[0].stat));
@@ -3361,12 +3365,12 @@ yyreduce:
     break;
 
   case 180:
-#line 1366 "gram.y"
+#line 1370 "gram.y"
     {yyval.stat = yyvsp[0].stat;}
     break;
 
   case 181:
-#line 1369 "gram.y"
+#line 1373 "gram.y"
     {
 		   (yyval.stat = yyvsp[-2].stat)->copy = copyfmt ("%s==%s",
 					       yyvsp[-2].stat->copy, freestat (yyvsp[0].stat));
@@ -3375,7 +3379,7 @@ yyreduce:
     break;
 
   case 182:
-#line 1376 "gram.y"
+#line 1380 "gram.y"
     {
 		   (yyval.stat = yyvsp[-2].stat)->copy = copyfmt ("%s!=%s",
 					       yyvsp[-2].stat->copy, freestat (yyvsp[0].stat));
@@ -3384,26 +3388,26 @@ yyreduce:
     break;
 
   case 183:
-#line 1384 "gram.y"
+#line 1388 "gram.y"
     {yyval.stat = yyvsp[0].stat;}
     break;
 
   case 184:
-#line 1387 "gram.y"
+#line 1391 "gram.y"
     {
 		    (yyval.stat = yyvsp[-2].stat)->copy = copyfmt ("%s<%s",yyvsp[-2].stat->copy,
 					       freestat (yyvsp[0].stat)); }
     break;
 
   case 185:
-#line 1392 "gram.y"
+#line 1396 "gram.y"
     {
 		    (yyval.stat = yyvsp[-2].stat)->copy = copyfmt ( "%s>%s", yyvsp[-2].stat->copy,
 						freestat (yyvsp[0].stat)); }
     break;
 
   case 186:
-#line 1397 "gram.y"
+#line 1401 "gram.y"
     {
 		   (yyval.stat = yyvsp[-2].stat)->copy = copyfmt ( "%s<=%s", yyvsp[-2].stat->copy,
 					       freestat (yyvsp[0].stat));
@@ -3412,7 +3416,7 @@ yyreduce:
     break;
 
   case 187:
-#line 1404 "gram.y"
+#line 1408 "gram.y"
     {
 		   (yyval.stat = yyvsp[-2].stat)->copy = copyfmt ( "%s>=%s", yyvsp[-2].stat->copy,
 					       freestat (yyvsp[0].stat));
@@ -3421,12 +3425,12 @@ yyreduce:
     break;
 
   case 188:
-#line 1412 "gram.y"
+#line 1416 "gram.y"
     {yyval.stat = yyvsp[0].stat;}
     break;
 
   case 189:
-#line 1415 "gram.y"
+#line 1419 "gram.y"
     {
 		   (yyval.stat = yyvsp[-2].stat)->copy = copyfmt ( "%s<<%s", yyvsp[-2].stat->copy,
 					       freestat (yyvsp[0].stat));
@@ -3435,7 +3439,7 @@ yyreduce:
     break;
 
   case 190:
-#line 1422 "gram.y"
+#line 1426 "gram.y"
     {
 		   (yyval.stat = yyvsp[-2].stat)->copy = copyfmt ( "%s>>%s", yyvsp[-2].stat->copy,
 					       freestat (yyvsp[0].stat));
@@ -3444,12 +3448,12 @@ yyreduce:
     break;
 
   case 191:
-#line 1430 "gram.y"
+#line 1434 "gram.y"
     {yyval.stat = yyvsp[0].stat;}
     break;
 
   case 192:
-#line 1433 "gram.y"
+#line 1437 "gram.y"
     {
 		    (yyval.stat = yyvsp[-2].stat)->copy = copyfmt ( "%s+%s", yyvsp[-2].stat->copy,
 						freestat (yyvsp[0].stat));
@@ -3457,7 +3461,7 @@ yyreduce:
     break;
 
   case 193:
-#line 1439 "gram.y"
+#line 1443 "gram.y"
     {
 		    (yyval.stat = yyvsp[-2].stat)->copy = copyfmt ( "%s-%s", yyvsp[-2].stat->copy,
 						freestat (yyvsp[0].stat));
@@ -3465,12 +3469,12 @@ yyreduce:
     break;
 
   case 194:
-#line 1447 "gram.y"
+#line 1451 "gram.y"
     {yyval.stat = yyvsp[0].stat;}
     break;
 
   case 195:
-#line 1450 "gram.y"
+#line 1454 "gram.y"
     {
 		    (yyval.stat = yyvsp[-2].stat)->copy = copyfmt ( "%s*%s", yyvsp[-2].stat->copy,
 						freestat (yyvsp[0].stat));
@@ -3478,7 +3482,7 @@ yyreduce:
     break;
 
   case 196:
-#line 1456 "gram.y"
+#line 1460 "gram.y"
     {
 		    (yyval.stat = yyvsp[-2].stat)->copy = copyfmt ( "%s/%s", yyvsp[-2].stat->copy,
 						freestat (yyvsp[0].stat));
@@ -3486,7 +3490,7 @@ yyreduce:
     break;
 
   case 197:
-#line 1462 "gram.y"
+#line 1466 "gram.y"
     {
 		    (yyval.stat = yyvsp[-2].stat)->copy = copyfmt ( "%s%%%s", yyvsp[-2].stat->copy,
 						freestat (yyvsp[0].stat));
@@ -3494,12 +3498,12 @@ yyreduce:
     break;
 
   case 198:
-#line 1469 "gram.y"
+#line 1473 "gram.y"
     {yyval.stat = yyvsp[0].stat;}
     break;
 
   case 199:
-#line 1472 "gram.y"
+#line 1476 "gram.y"
     {
 			 (yyval.stat = yyvsp[-2].stat)->copy = copyfmt ("(%s)%s", yyvsp[-2].stat->copy,
 						     freestat (yyvsp[0].stat));
@@ -3507,12 +3511,12 @@ yyreduce:
     break;
 
   case 200:
-#line 1479 "gram.y"
+#line 1483 "gram.y"
     {yyval.stat = yyvsp[0].stat;}
     break;
 
   case 201:
-#line 1482 "gram.y"
+#line 1486 "gram.y"
     {
 			  (yyval.stat = yyvsp[0].stat)->copy = copyfmt ("++%s", yyvsp[0].stat->copy);
 			  free (freestat (yyvsp[-1].stat));
@@ -3520,7 +3524,7 @@ yyreduce:
     break;
 
   case 202:
-#line 1488 "gram.y"
+#line 1492 "gram.y"
     {
 			  (yyval.stat = yyvsp[0].stat)->copy = copyfmt ("--%s", yyvsp[0].stat->copy);
 			  free (freestat (yyvsp[-1].stat));
@@ -3528,7 +3532,7 @@ yyreduce:
     break;
 
   case 203:
-#line 1494 "gram.y"
+#line 1498 "gram.y"
     {
 			(yyval.stat = yyvsp[0].stat)->copy = copyfmt ("%s%s", freestat (yyvsp[-1].stat),
 						    yyvsp[0].stat->copy);
@@ -3536,7 +3540,7 @@ yyreduce:
     break;
 
   case 204:
-#line 1500 "gram.y"
+#line 1504 "gram.y"
     {
 			(yyval.stat = yyvsp[0].stat)->copy = copyfmt ( "sizeof %s", yyvsp[0].stat->copy);
 		        free (freestat (yyvsp[-1].stat));
@@ -3544,7 +3548,7 @@ yyreduce:
     break;
 
   case 205:
-#line 1506 "gram.y"
+#line 1510 "gram.y"
     {
 			(yyval.stat = yyvsp[-1].stat)->copy = copyfmt ("sizeof (%s)", yyvsp[-1].stat->copy);
 		        free (freestat (yyvsp[-3].stat));
@@ -3552,42 +3556,42 @@ yyreduce:
     break;
 
   case 206:
-#line 1513 "gram.y"
+#line 1517 "gram.y"
     { yyval.stat = get_stat (strdup ("&"), NULL); }
     break;
 
   case 207:
-#line 1515 "gram.y"
+#line 1519 "gram.y"
     { yyval.stat = get_stat (strdup ("*"), NULL); }
     break;
 
   case 208:
-#line 1517 "gram.y"
+#line 1521 "gram.y"
     { yyval.stat = get_stat (strdup ("+"), NULL); }
     break;
 
   case 209:
-#line 1519 "gram.y"
+#line 1523 "gram.y"
     { yyval.stat = get_stat (strdup ("-"), NULL); }
     break;
 
   case 210:
-#line 1521 "gram.y"
+#line 1525 "gram.y"
     { yyval.stat = get_stat (strdup ("~"), NULL); }
     break;
 
   case 211:
-#line 1523 "gram.y"
+#line 1527 "gram.y"
     { yyval.stat = get_stat (strdup ("!"), NULL); }
     break;
 
   case 212:
-#line 1528 "gram.y"
+#line 1532 "gram.y"
     {yyval.stat = yyvsp[0].stat;}
     break;
 
   case 213:
-#line 1531 "gram.y"
+#line 1535 "gram.y"
     {
 		      (yyval.stat = yyvsp[-3].stat)->copy = copyfmt ("%s [%s]", yyvsp[-3].stat->copy,
 						 freestat (yyvsp[-1].stat));
@@ -3595,12 +3599,12 @@ yyreduce:
     break;
 
   case 214:
-#line 1537 "gram.y"
+#line 1541 "gram.y"
     { (yyval.stat =yyvsp[-2].stat)->copy = copyfmt ("%s ()", yyvsp[-2].stat->copy); }
     break;
 
   case 215:
-#line 1540 "gram.y"
+#line 1544 "gram.y"
     {
 		      (yyval.stat = yyvsp[-3].stat)->copy = copyfmt ("%s (%s)", yyvsp[-3].stat->copy,
 						 freestat (yyvsp[-1].stat));
@@ -3608,14 +3612,14 @@ yyreduce:
     break;
 
   case 216:
-#line 1546 "gram.y"
+#line 1550 "gram.y"
     {
 		      (yyval.stat = yyvsp[-2].stat)->copy = copyfmt ("%s.%s", yyvsp[-2].stat->copy,
 						 freestat (yyvsp[0].stat)); }
     break;
 
   case 217:
-#line 1551 "gram.y"
+#line 1555 "gram.y"
     {
 		      (yyval.stat = yyvsp[-2].stat)->copy = copyfmt ("%s->%s", yyvsp[-2].stat->copy,
 						 freestat (yyvsp[0].stat));
@@ -3624,7 +3628,7 @@ yyreduce:
     break;
 
   case 218:
-#line 1558 "gram.y"
+#line 1562 "gram.y"
     {
 			   (yyval.stat =yyvsp[-1].stat)->copy = copyfmt ( "%s++", yyvsp[-1].stat->copy);
 			   free (freestat (yyvsp[0].stat));
@@ -3632,7 +3636,7 @@ yyreduce:
     break;
 
   case 219:
-#line 1564 "gram.y"
+#line 1568 "gram.y"
     {
 			   (yyval.stat =yyvsp[-1].stat)->copy = copyfmt ( "%s--", yyvsp[-1].stat->copy);
 			   free (freestat (yyvsp[0].stat));
@@ -3640,32 +3644,32 @@ yyreduce:
     break;
 
   case 220:
-#line 1571 "gram.y"
+#line 1575 "gram.y"
     {yyval.stat = yyvsp[0].stat;}
     break;
 
   case 221:
-#line 1573 "gram.y"
+#line 1577 "gram.y"
     {yyval.stat = yyvsp[0].stat;}
     break;
 
   case 222:
-#line 1576 "gram.y"
+#line 1580 "gram.y"
     {yyval.stat = yyvsp[0].stat;}
     break;
 
   case 223:
-#line 1578 "gram.y"
+#line 1582 "gram.y"
     { (yyval.stat = yyvsp[-1].stat)->copy = copyfmt ("(%s)", yyvsp[-1].stat->copy); }
     break;
 
   case 224:
-#line 1582 "gram.y"
+#line 1586 "gram.y"
     {yyval.stat = yyvsp[0].stat;}
     break;
 
   case 225:
-#line 1584 "gram.y"
+#line 1588 "gram.y"
     { /* changed to be compitable with multi */
 	                             char *ptr;	/* ".." strings. */
 	                             yyvsp[-1].stat->copy [strlen (yyvsp[-1].stat->copy) - 2]
@@ -3680,12 +3684,12 @@ yyreduce:
     break;
 
   case 226:
-#line 1598 "gram.y"
+#line 1602 "gram.y"
     {yyval.stat = yyvsp[0].stat;}
     break;
 
   case 227:
-#line 1601 "gram.y"
+#line 1605 "gram.y"
     {
 		   (yyval.stat = yyvsp[-2].stat)->copy = copyfmt ( "%s, %s", yyvsp[-2].stat->copy,
 					       freestat (yyvsp[0].stat));
@@ -3696,7 +3700,7 @@ yyreduce:
     }
 
 /* Line 1010 of yacc.c.  */
-#line 3700 "gram.c"
+#line 3704 "gram.c"
 
   yyvsp -= yylen;
   yyssp -= yylen;
@@ -3921,7 +3925,7 @@ yyreturn:
 }
 
 
-#line 1612 "gram.y"
+#line 1616 "gram.y"
 
 /* 	//extern char yytext[]; */
 /* 	//extern int column; */

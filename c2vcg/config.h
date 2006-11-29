@@ -310,13 +310,13 @@
 #define PACKAGE_NAME "c2vcg"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "c2vcg 1.0b2"
+#define PACKAGE_STRING "c2vcg 1.0b3"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "c2vcg"
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "1.0b2"
+#define PACKAGE_VERSION "1.0b3"
 
 /* Define if <inttypes.h> exists and defines unusable PRI* macros. */
 /* #undef PRI_MACROS_BROKEN */
@@ -343,7 +343,7 @@
 /* #undef TM_IN_SYS_TIME */
 
 /* Version number of package */
-#define VERSION "1.0b2"
+#define VERSION "1.0b3"
 
 /* Define to 1 if `lex' declares `yytext' as a `char *' by default, not a
    `char[]'. */
